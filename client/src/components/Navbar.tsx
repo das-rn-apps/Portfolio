@@ -1,34 +1,58 @@
-import { motion } from 'framer-motion';
+// Navbar.tsx
+import React, { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
-import logo from '../assets/deepkart.png'; // Import your logo image
+import logo from "../assets/deepkart.png";
 
 const Navbar: React.FC = () => {
+    const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const navRef = useRef<HTMLUListElement>(null);
+
+    const toggleMenu = () => setMobileMenuOpen(prev => !prev);
+    const closeMenu = () => setMobileMenuOpen(false);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (navRef.current && !navRef.current.contains(event.target as Node) && isMobileMenuOpen) {
+                closeMenu();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [isMobileMenuOpen]);
+
+    const navLinks = [
+        { to: '/', label: 'Home' },
+        { to: '/about', label: 'About' },
+        { to: '/projects', label: 'Projects' },
+        { to: '/contact', label: 'Contact' },
+    ];
+
     return (
-        <motion.nav
-            className="navbar"
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-        >
-            <div className="navbar-brand">
-                <NavLink to="/" className="logo">
-                    <img src={logo} alt="Logo" className="logo-image" /> {/* Use your logo image */}
+        <nav className="navbar">
+            <div className="navbar-container">
+                <NavLink to="/" className="navbar-brand" onClick={closeMenu}>
+                    <img src={logo} alt="Logo" className="logo" />
                 </NavLink>
+
+                <div className="hamburger" onClick={toggleMenu} aria-label={isMobileMenuOpen ? "close menu" : "open menu"} aria-expanded={isMobileMenuOpen}>
+                    <div className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`} />
+                    <div className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`} />
+                    <div className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`} />
+                </div>
+
+                <ul ref={navRef} className={`nav-links ${isMobileMenuOpen ? 'open' : ''}`}>
+                    {navLinks.map(link => (
+                        <li key={link.to}>
+                            <NavLink to={link.to} className={({ isActive }) => (isActive ? 'active' : '')} onClick={closeMenu}>
+                                {link.label}
+                            </NavLink>
+                        </li>
+                    ))}
+                </ul>
             </div>
-            <motion.ul
-                className="nav-links"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-            >
-                <li><NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink></li>
-                <li><NavLink to="/about" className={({ isActive }) => (isActive ? 'active' : '')}>About</NavLink></li>
-                <li><NavLink to="/projects" className={({ isActive }) => (isActive ? 'active' : '')}>Projects</NavLink></li>
-                <li><NavLink to="/resume" className={({ isActive }) => (isActive ? 'active' : '')}>Resume</NavLink></li>
-                <li><NavLink to="/contact" className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink></li>
-            </motion.ul>
-        </motion.nav>
+        </nav>
     );
 };
 

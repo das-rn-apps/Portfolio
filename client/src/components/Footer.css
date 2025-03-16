@@ -1,0 +1,47 @@
+/* Footer Container */
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    margin-top: auto;
+    /* Push footer to the bottom of the page */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Copyright Text */
+.copyright {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.social-link {
+    color: #fff;
+    transition: color 0.3s ease;
+    display: inline-block;
+}
+
+.social-link:hover {
+    color: #007bff;
+    /* Change color on hover */
+}
+
+/* SVG Icons */
+.social-icon {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+    /* Inherit color from parent */
+}

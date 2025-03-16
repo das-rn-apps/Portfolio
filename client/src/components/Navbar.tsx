@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
-import { NavLink } from 'react-router-dom'; // Use NavLink instead of Link
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
+import logo from '../assets/deepkart.png'; // Import your logo image
 
 const Navbar: React.FC = () => {
     return (
@@ -11,7 +12,9 @@ const Navbar: React.FC = () => {
             transition={{ duration: 0.5 }}
         >
             <div className="navbar-brand">
-                <NavLink to="/" className="logo">Deepak</NavLink>
+                <NavLink to="/" className="logo">
+                    <img src={logo} alt="Logo" className="logo-image" /> {/* Use your logo image */}
+                </NavLink>
             </div>
             <motion.ul
                 className="nav-links"

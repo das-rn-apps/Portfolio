@@ -11,7 +11,6 @@ const Resume: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
         >
-            <h2>Resume</h2>
             <motion.div
                 className="resume-content"
                 initial={{ y: 50, opacity: 0 }}

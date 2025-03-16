@@ -28,7 +28,6 @@ const Contact: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
         >
-            <h2>Get in Touch</h2>
             {!isSubmitted ? (
                 <motion.form
                     onSubmit={handleSubmit}

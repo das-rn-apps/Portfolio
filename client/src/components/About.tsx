@@ -9,7 +9,6 @@ const About: React.FC = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
         >
-            <h2>About Me</h2>
             <motion.div
                 className="about-content"
                 initial={{ x: -50, opacity: 0 }}
